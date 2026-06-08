@@ -1,0 +1,383 @@
+@import "tailwindcss";
+
+@theme {
+  /* Semantic tokens registered in Tailwind CSS v4 colors and typography */
+  --color-theme-bg: var(--theme-bg-main);
+  --color-theme-card: var(--theme-bg-card);
+  --color-theme-card-hover: var(--theme-bg-card-hover);
+  
+  --color-theme-primary: var(--theme-primary);
+  --color-theme-primary-hover: var(--theme-primary-hover);
+  --color-theme-primary-glow: var(--theme-primary-glow);
+  
+  --color-theme-success: var(--theme-success);
+  --color-theme-success-hover: var(--theme-success-hover);
+  --color-theme-success-glow: var(--theme-success-glow);
+
+  --color-theme-danger: var(--theme-danger);
+  --color-theme-danger-hover: var(--theme-danger-hover);
+  --color-theme-danger-glow: var(--theme-danger-glow);
+
+  --color-theme-warning: var(--theme-warning);
+  --color-theme-text-main: var(--theme-text-main);
+  --color-theme-text-muted: var(--theme-text-muted);
+  --color-theme-border-subtle: var(--theme-border-subtle);
+  
+  --font-sans: var(--theme-font), sans-serif;
+  --font-display: var(--theme-font-display), sans-serif;
+}
+
+/* ==========================================
+   1. GLASSMORPHISM THEME
+   ========================================== */
+[data-theme="glass-dark"], [data-theme="glass-light"] {
+  --theme-border-width: 1px;
+  --theme-radius-lg: 16px;
+  --theme-radius-md: 10px;
+  --theme-radius-sm: 6px;
+  --theme-backdrop-blur: blur(12px);
+  --theme-font: var(--font-inter);
+  --theme-font-display: var(--font-outfit);
+}
+
+/* Glass Dark Mode */
+[data-theme="glass-dark"], :root {
+  --theme-bg-main: #0a0b10;
+  --theme-bg-card: rgba(20, 22, 33, 0.7);
+  --theme-bg-card-hover: rgba(28, 31, 46, 0.85);
+  --theme-border-subtle: rgba(255, 255, 255, 0.08);
+  --theme-border-focus: rgba(94, 92, 230, 0.5);
+  
+  --theme-primary: #5e5ce6;
+  --theme-primary-hover: #7876ec;
+  --theme-primary-glow: rgba(94, 92, 230, 0.15);
+  
+  --theme-success: #30d158;
+  --theme-success-hover: #4cd964;
+  --theme-success-glow: rgba(48, 209, 88, 0.15);
+
+  --theme-danger: #ff453a;
+  --theme-danger-hover: #ff6961;
+  --theme-danger-glow: rgba(255, 69, 58, 0.15);
+
+  --theme-warning: #ff9f0a;
+
+  --theme-text-main: #f5f5f7;
+  --theme-text-muted: #8e8e93;
+  
+  --theme-shadow-lg: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --theme-shadow-md: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Glass Light Mode */
+[data-theme="glass-light"] {
+  --theme-bg-main: #f4f5fa;
+  --theme-bg-card: rgba(255, 255, 255, 0.75);
+  --theme-bg-card-hover: rgba(255, 255, 255, 0.88);
+  --theme-border-subtle: rgba(0, 0, 0, 0.08);
+  --theme-border-focus: #5e5ce6;
+  
+  --theme-primary: #5e5ce6;
+  --theme-primary-hover: #4b49c1;
+  --theme-primary-glow: rgba(94, 92, 230, 0.08);
+  
+  --theme-success: #24b244;
+  --theme-success-hover: #1e9638;
+  --theme-success-glow: rgba(36, 178, 68, 0.08);
+
+  --theme-danger: #e0362b;
+  --theme-danger-hover: #be2d24;
+  --theme-danger-glow: rgba(224, 54, 43, 0.08);
+
+  --theme-warning: #e08a00;
+
+  --theme-text-main: #1c1c1e;
+  --theme-text-muted: #636366;
+  
+  --theme-shadow-lg: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+  --theme-shadow-md: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================
+   2. NEO-BRUTALISM THEME
+   ========================================== */
+[data-theme="neo-brutalism-light"], [data-theme="neo-brutalism-dark"] {
+  --theme-border-width: 3px;
+  --theme-radius-lg: 0px;
+  --theme-radius-md: 0px;
+  --theme-radius-sm: 0px;
+  --theme-backdrop-blur: none;
+  --theme-font: Courier New, Courier, monospace;
+  --theme-font-display: Courier New, Courier, monospace;
+}
+
+/* Neo Light Mode */
+[data-theme="neo-brutalism-light"] {
+  --theme-bg-main: #f2efe9;
+  --theme-bg-card: #ffffff;
+  --theme-bg-card-hover: #fffbeb;
+  --theme-border-subtle: #000000;
+  --theme-border-focus: #000000;
+  
+  --theme-primary: #ff5e62;
+  --theme-primary-hover: #ff3c41;
+  --theme-primary-glow: transparent;
+  
+  --theme-success: #00f5d4;
+  --theme-success-hover: #00d2b4;
+  --theme-success-glow: transparent;
+
+  --theme-danger: #ff0055;
+  --theme-danger-hover: #d60047;
+  --theme-danger-glow: transparent;
+
+  --theme-warning: #fee440;
+
+  --theme-text-main: #000000;
+  --theme-text-muted: #27272a;
+  
+  --theme-shadow-lg: 6px 6px 0px 0px #000000;
+  --theme-shadow-md: 4px 4px 0px 0px #000000;
+}
+
+/* Neo Dark Mode */
+[data-theme="neo-brutalism-dark"] {
+  --theme-bg-main: #18181b;
+  --theme-bg-card: #27272a;
+  --theme-bg-card-hover: #3f3f46;
+  --theme-border-subtle: #ffffff;
+  --theme-border-focus: #ffffff;
+  
+  --theme-primary: #ff5e62;
+  --theme-primary-hover: #ff7c80;
+  --theme-primary-glow: transparent;
+  
+  --theme-success: #00f5d4;
+  --theme-success-hover: #33ffd0;
+  --theme-success-glow: transparent;
+
+  --theme-danger: #ff0055;
+  --theme-danger-hover: #ff3377;
+  --theme-danger-glow: transparent;
+
+  --theme-warning: #fee440;
+
+  --theme-text-main: #ffffff;
+  --theme-text-muted: #d4d4d8;
+  
+  --theme-shadow-lg: 6px 6px 0px 0px #ffffff;
+  --theme-shadow-md: 4px 4px 0px 0px #ffffff;
+}
+
+/* ==========================================
+   3. MINIMALIST THEME
+   ========================================== */
+[data-theme="minimalist-light"], [data-theme="minimalist-dark"] {
+  --theme-border-width: 1px;
+  --theme-radius-lg: 6px;
+  --theme-radius-md: 4px;
+  --theme-radius-sm: 2px;
+  --theme-backdrop-blur: none;
+  --theme-font: var(--font-inter);
+  --theme-font-display: var(--font-inter);
+}
+
+/* Minimalist Light Mode */
+[data-theme="minimalist-light"] {
+  --theme-bg-main: #f9fafb;
+  --theme-bg-card: #ffffff;
+  --theme-bg-card-hover: #f3f4f6;
+  --theme-border-subtle: #e5e7eb;
+  --theme-border-focus: #111827;
+  
+  --theme-primary: #111827;
+  --theme-primary-hover: #374151;
+  --theme-primary-glow: rgba(17, 24, 39, 0.05);
+  
+  --theme-success: #10b981;
+  --theme-success-hover: #059669;
+  --theme-success-glow: rgba(16, 185, 129, 0.05);
+
+  --theme-danger: #ef4444;
+  --theme-danger-hover: #dc2626;
+  --theme-danger-glow: rgba(239, 68, 68, 0.05);
+
+  --theme-warning: #f59e0b;
+
+  --theme-text-main: #111827;
+  --theme-text-muted: #6b7280;
+  
+  --theme-shadow-lg: 0 1px 3px rgba(0,0,0,0.05);
+  --theme-shadow-md: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Minimalist Dark Mode */
+[data-theme="minimalist-dark"] {
+  --theme-bg-main: #0f172a;
+  --theme-bg-card: #1e293b;
+  --theme-bg-card-hover: #334155;
+  --theme-border-subtle: #334155;
+  --theme-border-focus: #f8fafc;
+  
+  --theme-primary: #f8fafc;
+  --theme-primary-hover: #cbd5e1;
+  --theme-primary-glow: rgba(248, 250, 252, 0.05);
+  
+  --theme-success: #34d399;
+  --theme-success-hover: #6ee7b7;
+  --theme-success-glow: rgba(52, 211, 153, 0.05);
+
+  --theme-danger: #f87171;
+  --theme-danger-hover: #fca5a5;
+  --theme-danger-glow: rgba(248, 113, 113, 0.05);
+
+  --theme-warning: #fbbf24;
+
+  --theme-text-main: #f8fafc;
+  --theme-text-muted: #94a3b8;
+  
+  --theme-shadow-lg: 0 1px 3px rgba(0,0,0,0.2);
+  --theme-shadow-md: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* ==========================================
+   GLOBAL RULES & CLASS MAPPINGS
+   ========================================== */
+
+html, body {
+  background-color: var(--theme-bg-main);
+  color: var(--theme-text-main);
+  font-family: var(--theme-font), sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--theme-border-subtle);
+  border-radius: 4px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Theme Adaptable Base Components */
+.theme-card {
+  background-color: var(--theme-bg-card);
+  border: var(--theme-border-width) solid var(--theme-border-subtle);
+  border-radius: var(--theme-radius-lg);
+  box-shadow: var(--theme-shadow-lg);
+  backdrop-filter: var(--theme-backdrop-blur);
+  -webkit-backdrop-filter: var(--theme-backdrop-blur);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.theme-card:hover {
+  background-color: var(--theme-bg-card-hover);
+}
+[data-theme^="neo-brutalism"] .theme-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px 0px var(--theme-border-subtle);
+}
+
+.theme-btn-primary {
+  background-color: var(--theme-primary);
+  color: var(--theme-bg-card); /* Flips to main bg or light bg color for contrast */
+  border: var(--theme-border-width) solid var(--theme-border-subtle);
+  border-radius: var(--theme-radius-md);
+  box-shadow: var(--theme-shadow-md);
+  font-family: var(--theme-font), sans-serif;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+[data-theme^="glass"] .theme-btn-primary {
+  color: #ffffff;
+}
+[data-theme^="neo-brutalism"] .theme-btn-primary {
+  color: #ffffff;
+}
+[data-theme="minimalist-light"] .theme-btn-primary {
+  color: #ffffff;
+}
+[data-theme="minimalist-dark"] .theme-btn-primary {
+  color: #0f172a;
+}
+.theme-btn-primary:hover:not(:disabled) {
+  background-color: var(--theme-primary-hover);
+  transform: translateY(-1px);
+}
+[data-theme^="neo-brutalism"] .theme-btn-primary:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px var(--theme-border-subtle);
+}
+
+.theme-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.03);
+  color: var(--theme-text-main);
+  border: var(--theme-border-width) solid var(--theme-border-subtle);
+  border-radius: var(--theme-radius-md);
+  font-family: var(--theme-font), sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+[data-theme$="light"] .theme-btn-secondary {
+  background-color: #ffffff;
+}
+[data-theme="minimalist-dark"] .theme-btn-secondary {
+  background-color: #1e293b;
+}
+[data-theme="neo-brutalism-dark"] .theme-btn-secondary {
+  background-color: #27272a;
+}
+.theme-btn-secondary:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+[data-theme$="light"] .theme-btn-secondary:hover:not(:disabled) {
+  background-color: #f3f4f6;
+}
+[data-theme^="neo-brutalism"] .theme-btn-secondary:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px var(--theme-border-subtle);
+}
+
+.theme-input {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: var(--theme-border-width) solid var(--theme-border-subtle);
+  border-radius: var(--theme-radius-md);
+  color: var(--theme-text-main);
+  font-family: var(--theme-font), sans-serif;
+  outline: none;
+  transition: all 0.2s ease;
+}
+[data-theme$="light"] .theme-input {
+  background-color: #ffffff;
+}
+[data-theme="minimalist-dark"] .theme-input {
+  background-color: #1e293b;
+}
+[data-theme="neo-brutalism-dark"] .theme-input {
+  background-color: #27272a;
+}
+.theme-input:focus {
+  border-color: var(--theme-primary);
+  box-shadow: 0 0 0 2px var(--theme-primary-glow);
+}
+[data-theme^="neo-brutalism"] .theme-input:focus {
+  box-shadow: none;
+}
