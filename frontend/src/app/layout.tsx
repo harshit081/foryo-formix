@@ -14,8 +14,11 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Google Forms Pro - Form Builder & Analytics",
-  description: "Create Google Forms with dynamic styling, parse Excel files, and manage response analytics with an elegant dashboard.",
+  title: "Foryo Formix - Premium Form Operations Platform",
+  description: "Foryo Formix is the first form operations platform in the Foryo ecosystem. Forms that do more than collect responses.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

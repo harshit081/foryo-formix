@@ -192,16 +192,34 @@ export default function Home() {
 
   if (!token && !isSandbox) {
     return (
-      <div className="min-h-screen flex flex-col justify-between relative bg-[#0b0c10] text-[#c5c6c7] font-sans overflow-hidden">
+      <div className="min-h-screen flex flex-col justify-between relative bg-[#111827] text-[#f5f5f7] font-sans overflow-hidden">
         {/* Dynamic Background Gradients */}
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[#5e5ce6]/10 blur-[150px] pointer-events-none animate-pulse duration-5000"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#30d158]/10 blur-[150px] pointer-events-none animate-pulse duration-3000"></div>
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[#6D5EF9]/10 blur-[150px] pointer-events-none animate-pulse duration-5000"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#14B8A6]/10 blur-[150px] pointer-events-none animate-pulse duration-3000"></div>
         
         {/* Top Header */}
         <header className="max-w-7xl mx-auto w-full px-6 py-8 flex justify-between items-center z-10 relative">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#5e5ce6] to-[#30d158] flex items-center justify-center font-bold text-white font-display text-base shadow-lg shadow-[#5e5ce6]/20">F</div>
-            <span className="text-lg font-bold font-display tracking-tight text-white">FormsPro</span>
+            <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 shrink-0 select-none">
+              <defs>
+                <linearGradient id="landing-spark-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#6D5EF9" />
+                  <stop offset="25%" stopColor="#A855F7" />
+                  <stop offset="50%" stopColor="#EC4899" />
+                  <stop offset="75%" stopColor="#FF6B6B" />
+                  <stop offset="100%" stopColor="#14B8A6" />
+                </linearGradient>
+              </defs>
+              <path d="M12 2C12 2 12.5 8.5 19 9C12.5 9.5 12 16 12 16C12 16 11.5 9.5 5 9C11.5 8.5 12 2 12 2Z" fill="url(#landing-spark-grad)" />
+              <path d="M12 12C12 12 12.25 15.25 15.5 15.5C12.25 15.75 12 19 12 19C12 19 11.75 15.75 8.5 15.5C11.75 15.25 12 12 12 12Z" fill="url(#landing-spark-grad)" opacity="0.8" />
+              <path d="M18 4C18 4 18.15 5.95 20.1 6.1C18.15 6.25 18 8.2 18 8.2C18 8.2 17.85 6.25 15.9 6.1C17.85 5.95 18 4 18 4Z" fill="url(#landing-spark-grad)" opacity="0.9" />
+            </svg>
+            <div className="flex flex-col items-start leading-none text-left">
+              <span className="text-[9px] font-bold text-[#A855F7] tracking-wider uppercase font-display select-none">Foryo</span>
+              <span className="text-base font-extrabold font-display tracking-tight text-white">
+                Formix
+              </span>
+            </div>
           </div>
           <div>
             <button 
@@ -217,35 +235,55 @@ export default function Home() {
         <main className="max-w-7xl mx-auto w-full px-6 flex-1 flex flex-col lg:flex-row items-center justify-center gap-12 z-10 relative py-12">
           {/* Left Hero Column */}
           <div className="flex-1 flex flex-col items-start text-left gap-6 lg:max-w-xl animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#5e5ce6]/30 bg-[#5e5ce6]/5 text-xs text-[#7876ec] font-semibold">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#6D5EF9]/30 bg-[#6D5EF9]/5 text-xs text-[#A855F7] font-semibold">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#5e5ce6] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#5e5ce6]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A855F7] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A855F7]"></span>
               </span>
-              <span>Next-Gen Google Forms Integration</span>
+              <span>Foryo Ecosystem</span>
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display leading-[1.08] tracking-tight text-white">
-              The beautiful way to build <span className="bg-gradient-to-r from-[#5e5ce6] via-[#bf5af2] to-[#30d158] bg-clip-text text-transparent">smart forms.</span>
+              Forms that do more than <span className="bg-gradient-to-r from-[#6D5EF9] via-[#EC4899] to-[#14B8A6] bg-clip-text text-transparent">collect responses.</span>
             </h1>
             
             <p className="text-base text-[#8e8e93] leading-relaxed">
-              Design professional quizzes and surveys in a gorgeous visual workspace. Parse spreadsheets in one click, apply stunning layout themes, and sync everything live to Google Forms with detailed analytics.
+              Foryo Formix is a premium <strong>form operations platform</strong>. Built to help you collect, manage, understand, and act on information. Design quizzes, import spreadsheet templates in one click, apply layouts, and sync with live Google Forms.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4">
+            {/* Spark Logo Values */}
+            <div className="grid grid-cols-2 gap-3.5 w-full mt-2">
+              <div className="p-3 rounded-xl border border-white/5 bg-white/1 flex flex-col gap-1 text-left">
+                <span className="text-[10px] font-bold text-[#6D5EF9] uppercase tracking-wider">✦ Insight</span>
+                <span className="text-[11px] text-[#8e8e93] leading-snug">Understand response data dynamically.</span>
+              </div>
+              <div className="p-3 rounded-xl border border-white/5 bg-white/1 flex flex-col gap-1 text-left">
+                <span className="text-[10px] font-bold text-[#A855F7] uppercase tracking-wider">✦ Discovery</span>
+                <span className="text-[11px] text-[#8e8e93] leading-snug">Uncover spreadsheet configurations.</span>
+              </div>
+              <div className="p-3 rounded-xl border border-white/5 bg-white/1 flex flex-col gap-1 text-left">
+                <span className="text-[10px] font-bold text-[#EC4899] uppercase tracking-wider">✦ Completion</span>
+                <span className="text-[11px] text-[#8e8e93] leading-snug">Sync workflows with live Google Forms.</span>
+              </div>
+              <div className="p-3 rounded-xl border border-white/5 bg-white/1 flex flex-col gap-1 text-left">
+                <span className="text-[10px] font-bold text-[#14B8A6] uppercase tracking-wider">✦ Connected Workflows</span>
+                <span className="text-[11px] text-[#8e8e93] leading-snug">Act on information with automation.</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
               <button 
                 onClick={handleLogin}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#5e5ce6] to-[#bf5af2] hover:from-[#7876ec] hover:to-[#c86cf5] text-white text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#5e5ce6]/20 hover:shadow-[#5e5ce6]/35 transition-all duration-300"
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#6D5EF9] to-[#EC4899] hover:from-[#A855F7] hover:to-[#FF6B6B] text-white text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#6D5EF9]/20 hover:shadow-[#6D5EF9]/35 transition-all duration-300"
               >
-                <span>Connect with Google</span>
+                <span>Connect Google Drive</span>
               </button>
               
               <button 
                 onClick={() => setIsSandbox(true)}
                 className="px-6 py-3 rounded-xl border border-white/10 hover:border-white/20 bg-white/2 hover:bg-white/5 text-white text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer transition-all duration-200"
               >
-                <span>Launch Builder Sandbox</span>
+                <span>Sandbox Demo</span>
               </button>
             </div>
           </div>
@@ -253,30 +291,30 @@ export default function Home() {
           {/* Right Visual Parallax Mockup Column */}
           <div className="flex-1 w-full flex justify-center items-center relative lg:h-[450px] mt-10 lg:mt-0 animate-fade-in">
             {/* Background glowing circle behind cards */}
-            <div className="absolute w-[350px] h-[350px] rounded-full bg-gradient-to-tr from-[#5e5ce6]/20 to-[#bf5af2]/20 blur-3xl pointer-events-none"></div>
+            <div className="absolute w-[350px] h-[350px] rounded-full bg-gradient-to-tr from-[#6D5EF9]/20 to-[#EC4899]/20 blur-3xl pointer-events-none"></div>
 
             {/* Mockup Card 1: Question Builder (Main layer) */}
             <div className="w-[310px] sm:w-[360px] p-6 rounded-2xl border border-white/10 bg-[#1c1c1e]/85 backdrop-blur-xl shadow-2xl relative rotate-[-2deg] hover:rotate-0 hover:scale-[1.02] transition-all duration-300 z-20 flex flex-col gap-4">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[9px] uppercase font-bold tracking-wider text-[#ffcc00] px-2 py-0.5 bg-[#ffcc00]/10 rounded-md">Quiz Mode</span>
+                  <span className="text-[9px] uppercase font-bold tracking-wider text-[#FF6B6B] px-2 py-0.5 bg-[#FF6B6B]/10 rounded-md">Quiz Mode</span>
                   <span className="text-[10px] text-white/40">10 Points</span>
                 </div>
-                <div className="w-1.5 h-1.5 rounded-full bg-[#30d158] animate-pulse"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#14B8A6] animate-pulse"></div>
               </div>
               
               <div className="flex flex-col gap-1.5 text-left">
                 <div className="text-xs text-white/40 font-semibold">Question 1</div>
-                <div className="text-sm font-bold text-white font-display">What is the orbital speed of the moon?</div>
+                <div className="text-sm font-bold text-white font-display">What is the mission of Foryo Ecosystem?</div>
               </div>
 
               <div className="flex flex-col gap-2">
-                <div className="p-3 rounded-xl border border-[#30d158]/30 bg-[#30d158]/5 flex justify-between items-center">
-                  <span className="text-xs text-[#30d158] font-semibold">1.02 km/s</span>
-                  <span className="text-[10px] text-[#30d158] font-bold px-1.5 py-0.5 bg-[#30d158]/10 rounded">Correct Key</span>
+                <div className="p-3 rounded-xl border border-[#14B8A6]/30 bg-[#14B8A6]/5 flex justify-between items-center">
+                  <span className="text-xs text-[#14B8A6] font-semibold">Act on information</span>
+                  <span className="text-[10px] text-[#14B8A6] font-bold px-1.5 py-0.5 bg-[#14B8A6]/10 rounded">Correct Key</span>
                 </div>
                 <div className="p-3 rounded-xl border border-white/5 bg-white/1 flex items-center">
-                  <span className="text-xs text-white/60">3.48 km/s</span>
+                  <span className="text-xs text-white/60">Just collect responses</span>
                 </div>
               </div>
             </div>
@@ -286,9 +324,9 @@ export default function Home() {
               <div className="text-xs font-bold text-white text-left font-display">Layout Styles</div>
               
               <div className="flex flex-col gap-1.5">
-                <div className="flex justify-between items-center px-3 py-2 rounded-lg bg-[#5e5ce6]/10 border border-[#5e5ce6]/25">
-                  <span className="text-[11px] text-[#7876ec] font-semibold">Glassmorphism</span>
-                  <div className="w-2 h-2 rounded-full bg-[#5e5ce6]"></div>
+                <div className="flex justify-between items-center px-3 py-2 rounded-lg bg-[#6D5EF9]/10 border border-[#6D5EF9]/25">
+                  <span className="text-[11px] text-[#A855F7] font-semibold">Glassmorphism</span>
+                  <div className="w-2 h-2 rounded-full bg-[#6D5EF9]"></div>
                 </div>
                 <div className="flex justify-between items-center px-3 py-2 rounded-lg bg-white/2 border border-white/5">
                   <span className="text-[11px] text-white/50">Neo-Brutalism</span>
@@ -298,13 +336,13 @@ export default function Home() {
 
             {/* Mockup Card 3: Live Responses Sparklines (Floating bottom-left) */}
             <div className="absolute w-[200px] p-4 rounded-xl border border-white/10 bg-[#1c1c1e]/90 backdrop-blur-xl shadow-2xl translate-x-[-90px] sm:translate-x-[-120px] translate-y-[100px] sm:translate-y-[120px] rotate-[-5deg] hover:rotate-0 hover:scale-[1.03] transition-all duration-300 z-30 flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-[#30d158]/10 border border-[#30d158]/20 text-[#30d158]">
+              <div className="p-2 rounded-lg bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6]">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                 </svg>
               </div>
               <div className="flex flex-col items-start">
-                <span className="text-[9px] text-white/40 font-semibold leading-none">Total Responses</span>
+                <span className="text-[9px] text-white/40 font-semibold leading-none">Total Insights</span>
                 <span className="text-base font-bold text-white tracking-tight leading-none mt-1 font-display">1,482</span>
               </div>
             </div>
@@ -313,7 +351,7 @@ export default function Home() {
 
         {/* Footer info */}
         <footer className="max-w-7xl mx-auto w-full px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 z-10 relative border-t border-white/5 text-[11px] text-[#8e8e93]">
-          <div>&copy; {new Date().getFullYear()} FormsPro. Made for high-performance form creators.</div>
+          <div>&copy; {new Date().getFullYear()} Foryo Formix. Made for high-performance form operations.</div>
           <div className="flex gap-4">
             <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
             <span className="hover:text-white cursor-pointer transition-colors">Terms of Service</span>
