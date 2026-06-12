@@ -25,6 +25,13 @@
   
   --font-sans: var(--theme-font), sans-serif;
   --font-display: var(--theme-font-display), sans-serif;
+
+  /* Custom Brand Colors for Foryo Formix */
+  --color-brand-purple: #6D5EF9;
+  --color-brand-violet: #A855F7;
+  --color-brand-pink: #EC4899;
+  --color-brand-coral: #FF6B6B;
+  --color-brand-teal: #14B8A6;
 }
 
 /* ==========================================
@@ -381,3 +388,191 @@ html, body {
 [data-theme^="neo-brutalism"] .theme-input:focus {
   box-shadow: none;
 }
+
+/* ==========================================
+   4. BRAND ACCENTS & ANIMATIONS
+   ========================================== */
+
+/* Animated primary gradient background */
+.bg-brand-gradient {
+  background: linear-gradient(
+    135deg,
+    #6D5EF9 0%,
+    #A855F7 25%,
+    #EC4899 50%,
+    #FF6B6B 75%,
+    #14B8A6 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Primary gradient text clip */
+.text-brand-gradient {
+  background: linear-gradient(
+    135deg,
+    #6D5EF9 0%,
+    #A855F7 25%,
+    #EC4899 50%,
+    #FF6B6B 75%,
+    #14B8A6 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Subtle continuous float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--float-rotation, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--float-rotation, 0deg)); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse glow keyframes for neon shadows */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px -3px rgba(109, 94, 249, 0.4), 0 0 6px -2px rgba(109, 94, 249, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px 2px rgba(109, 94, 249, 0.6), 0 0 12px 4px rgba(109, 94, 249, 0.3);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s infinite;
+}
+
+/* Fade in up helper */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+/* Foryo Formix Feature Card & Ticker Animations */
+.gradient-text {
+  background: linear-gradient(to right, #6D5EF9, #A855F7, #EC4899, #FF6B6B, #14B8A6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.flow-line {
+  stroke-dasharray: 10, 5;
+  animation: flowMove 20s linear infinite;
+}
+@keyframes flowMove {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Fluid Glowing Line */
+.glowing-flow-line {
+  stroke-dasharray: 50, 150;
+  stroke-dashoffset: 0;
+  animation: glowMove 4s linear infinite;
+  filter: drop-shadow(0 0 5px rgba(109, 94, 249, 0.5));
+}
+@keyframes glowMove {
+  to { stroke-dashoffset: -200; }
+}
+
+/* Floating Insights Bubbles */
+.bubble {
+  position: absolute;
+  background: rgba(109, 94, 249, 0.05);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp var(--duration) ease-in infinite;
+  bottom: -50px;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  20% { opacity: 0.4; }
+  80% { opacity: 0.2; }
+  100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+
+/* Demo Animations */
+.demo-node-builder .node {
+  animation: pulseNode 2s infinite ease-in-out;
+}
+@keyframes pulseNode {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+.demo-cards .card-slide {
+  animation: cardSlideIn 3s infinite ease-out;
+}
+@keyframes cardSlideIn {
+  0% { transform: translateY(20px); opacity: 0; }
+  20% { transform: translateY(0); opacity: 1; }
+  80% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-10px); opacity: 0; }
+}
+
+.demo-growth .bar {
+  animation: barGrow 2.5s infinite ease-out;
+  width: 0%;
+}
+@keyframes barGrow {
+  0% { width: 0%; }
+  70% { width: 85%; }
+  100% { width: 85%; }
+}
+
+.demo-automate .toggle {
+  animation: toggleSwitch 2s infinite alternate;
+}
+@keyframes toggleSwitch {
+  0% { transform: translateX(0); background-color: #cbd5e1; }
+  100% { transform: translateX(18px); background-color: #14B8A6; }
+}
+
+.sync-icon {
+  animation: syncRotate 2s linear infinite;
+}
+@keyframes syncRotate {
+  from { transform: rotate(0deg); }
+  to { stroke: #6D5EF9; transform: rotate(360deg); }
+}
+
+/* Marquee style for ticker */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  animation: marquee 30s linear infinite;
+}
+
+
