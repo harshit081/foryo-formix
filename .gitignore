@@ -26,3 +26,19 @@ yarn-error.log*
 # OS and system files
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Database files
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
