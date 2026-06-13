@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutGrid, FileText, BarChart3, Settings } from 'lucide-react';
+import { LayoutGrid, FileText, BarChart3 } from 'lucide-react';
 
 interface BottomNavProps {
   activeTab: string;
@@ -12,7 +12,6 @@ export default function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
     { id: 'manager', label: 'Dashboard', icon: LayoutGrid },
     { id: 'builder', label: 'Forms', icon: FileText },
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-    { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   return (

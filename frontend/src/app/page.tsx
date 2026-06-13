@@ -6,7 +6,6 @@ import BottomNav from '../components/BottomNav';
 import FormBuilder from '../components/FormBuilder';
 import FormManager from '../components/FormManager';
 import FormAnalytics from '../components/FormAnalytics';
-import Settings from '../components/Settings';
 import { ShieldAlert } from 'lucide-react';
 import LandingHeader from '../components/landing/LandingHeader';
 import LandingHero from '../components/landing/LandingHero';
@@ -753,15 +752,6 @@ export default function Home() {
             formId={activeAnalyticsFormId}
             onBack={() => setActiveTab('manager')}
             showToast={showToast}
-          />
-        )}
-
-        {activeTab === 'settings' && (
-          <Settings 
-            clientIdLoaded={clientIdLoaded}
-            backendHealthy={backendHealthy}
-            onCheckHealth={checkBackendStatus}
-            clientId={clientId}
           />
         )}
       </main>
