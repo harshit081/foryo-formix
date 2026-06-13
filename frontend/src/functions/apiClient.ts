@@ -1,5 +1,5 @@
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
-
+console.log(BACKEND_URL);
 interface RequestOptions extends RequestInit {
   token?: string;
   bodyData?: any;
