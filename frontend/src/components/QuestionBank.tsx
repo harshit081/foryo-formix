@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Layers, Trash2, Search, Tag } from 'lucide-react';
+import { fetchQuestionBank as getQuestionBank, deleteQuestionFromBank } from '../functions/questionBank';
 
 interface QuestionBankItem {
   id: string;
@@ -26,9 +27,7 @@ export default function QuestionBank({ token, onAddQuestion, showToast, triggerR
     if (!token) return;
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/question-bank', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await getQuestionBank(token);
       if (res.ok) {
         const data = await res.json();
         setItems(data);
@@ -47,10 +46,7 @@ export default function QuestionBank({ token, onAddQuestion, showToast, triggerR
   const handleDelete = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const res = await fetch(`http://localhost:5000/api/question-bank/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await deleteQuestionFromBank(id, token);
       if (res.ok) {
         showToast('Question removed from library', 'success');
         fetchBank();

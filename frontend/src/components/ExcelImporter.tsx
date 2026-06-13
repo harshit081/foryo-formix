@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FileUp, Trash2, ArrowRight, HelpCircle, FileSpreadsheet } from 'lucide-react';
+import { uploadExcelSpreadsheet } from '../functions/parser';
 
 interface ParsedQuestion {
   id: string;
@@ -56,13 +57,7 @@ export default function ExcelImporter({ token, showToast, onImportToBuilder }: E
     formData.append('file', selectedFile);
 
     try {
-      const res = await fetch('http://localhost:5000/api/parser/upload', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const res = await uploadExcelSpreadsheet(formData, token);
 
       if (res.ok) {
         const data = await res.json();

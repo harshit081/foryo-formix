@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, ArrowUp, ArrowDown, Save, Sparkles, PlusCircle, GripVertical, ChevronsUp, ChevronsDown } from 'lucide-react';
 import QuestionBank from './QuestionBank';
+import { saveQuestionToBank } from '../functions/questionBank';
+import { saveForm, updateForm } from '../functions/forms';
 
 interface Question {
   id: string;
@@ -328,21 +330,14 @@ export default function FormBuilder({ token, user, showToast, initialForm, onSav
       return;
     }
     try {
-      const res = await fetch('http://localhost:5000/api/question-bank', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title: q.title,
-          type: q.type,
-          options: q.options,
-          points: q.points || 0,
-          correctAnswers: q.correctAnswers,
-          category: 'Custom',
-        }),
-      });
+      const res = await saveQuestionToBank({
+        title: q.title,
+        type: q.type,
+        options: q.options,
+        points: q.points || 0,
+        correctAnswers: q.correctAnswers,
+        category: 'Custom',
+      }, token);
 
       if (res.ok) {
         showToast('Saved to your Question Bank!', 'success');
@@ -383,24 +378,16 @@ export default function FormBuilder({ token, user, showToast, initialForm, onSav
     setSaving(true);
     try {
       const isEditing = !!initialForm && !!initialForm.id;
-      const url = isEditing
-        ? `http://localhost:5000/api/forms/${initialForm.id}`
-        : 'http://localhost:5000/api/forms';
-      const method = isEditing ? 'PUT' : 'POST';
+      const formPayload = {
+        title,
+        description,
+        isQuiz,
+        questions,
+      };
 
-      const res = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          isQuiz,
-          questions,
-        }),
-      });
+      const res = isEditing
+        ? await updateForm(initialForm.id, formPayload, token)
+        : await saveForm(formPayload, token);
 
       if (res.ok) {
         showToast(isEditing ? 'Form updated successfully!' : 'Form saved successfully!', 'success');

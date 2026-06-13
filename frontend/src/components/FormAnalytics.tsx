@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, RefreshCw, BarChart2, MessageSquare, Download, Users } from 'lucide-react';
+import { fetchFormById, fetchFormAnalytics } from '../functions/forms';
 
 interface FormAnalyticsProps {
   token: string;
@@ -16,17 +17,13 @@ export default function FormAnalytics({ token, formId, onBack, showToast }: Form
   const fetchAnalytics = async () => {
     setLoading(true);
     try {
-      const formRes = await fetch(`http://localhost:5000/api/forms/${formId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const formRes = await fetchFormById(formId, token);
       if (formRes.ok) {
         const meta = await formRes.json();
         setFormMeta(meta);
       }
 
-      const analyticsRes = await fetch(`http://localhost:5000/api/forms/${formId}/analytics`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const analyticsRes = await fetchFormAnalytics(formId, token);
       
       if (analyticsRes.ok) {
         const stats = await analyticsRes.json();

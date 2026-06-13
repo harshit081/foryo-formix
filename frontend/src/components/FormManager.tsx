@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Trash2, Edit3, ExternalLink, BarChart3, CloudLightning, Check, AlertTriangle, Download, X, FileSpreadsheet } from 'lucide-react';
 import ExcelImporter from './ExcelImporter';
+import { deleteForm, importGoogleForm, fetchForms as apiFetchForms, exportToGoogleForms } from '../functions/forms';
 
 interface Form {
   id: string;
@@ -41,11 +42,7 @@ export default function FormManager({ token, showToast, onEditForm, onViewAnalyt
   const executeDelete = async (id: string, deleteFromDrive: boolean) => {
     setDeleting(true);
     try {
-      const url = `http://localhost:5000/api/forms/${id}?deleteFromDrive=${deleteFromDrive}`;
-      const res = await fetch(url, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await deleteForm(id, deleteFromDrive, token);
 
       if (res.ok) {
         showToast(
@@ -71,14 +68,7 @@ export default function FormManager({ token, showToast, onEditForm, onViewAnalyt
     if (!importUrlOrId.trim()) return;
     setImporting(true);
     try {
-      const res = await fetch('http://localhost:5000/api/forms/import', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ googleFormUrlOrId: importUrlOrId.trim() }),
-      });
+      const res = await importGoogleForm(importUrlOrId.trim(), token);
 
       if (res.ok) {
         const importedForm = await res.json();
@@ -101,9 +91,7 @@ export default function FormManager({ token, showToast, onEditForm, onViewAnalyt
     if (!token) return;
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/forms', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await apiFetchForms(token);
       if (res.ok) {
         const data = await res.json();
         setForms(data);
@@ -124,10 +112,7 @@ export default function FormManager({ token, showToast, onEditForm, onViewAnalyt
   const handleExport = async (id: string) => {
     setExportingId(id);
     try {
-      const res = await fetch(`http://localhost:5000/api/forms/${id}/export`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await exportToGoogleForms(id, token);
 
       if (res.ok) {
         showToast('Successfully exported to Google Forms!', 'success');

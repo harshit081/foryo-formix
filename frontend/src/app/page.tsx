@@ -20,6 +20,7 @@ import LandingThemeShowcase from '../components/landing/LandingThemeShowcase';
 import LandingTestimonials from '../components/landing/LandingTestimonials';
 import LandingCTA from '../components/landing/LandingCTA';
 import LandingFooter from '../components/landing/LandingFooter';
+import { checkHealth, getAuthConfig, fetchCurrentUser, exchangeGoogleCode } from '../functions/auth';
 
 interface Toast {
   id: string;
@@ -93,12 +94,12 @@ export default function Home() {
   // Check backend health & fetch configuration
   const checkBackendStatus = async () => {
     try {
-      const healthRes = await fetch('http://localhost:5000/health');
+      const healthRes = await checkHealth();
       if (healthRes.ok) {
         setBackendHealthy(true);
         
         // Fetch public Client ID config
-        const configRes = await fetch('http://localhost:5000/api/auth/config');
+        const configRes = await getAuthConfig();
         if (configRes.ok) {
           const configData = await configRes.json();
           if (configData.clientId) {
@@ -130,9 +131,7 @@ export default function Home() {
     // Check if user has saved login session token
     const savedToken = localStorage.getItem('token');
     if (savedToken) {
-      fetch('http://localhost:5000/api/auth/me', {
-        headers: { Authorization: `Bearer ${savedToken}` },
-      })
+      fetchCurrentUser(savedToken)
         .then(res => {
           if (res.ok) {
             return res.json();
@@ -558,11 +557,7 @@ export default function Home() {
         callback: async (response: any) => {
           if (response.code) {
             try {
-              const res = await fetch('http://localhost:5000/api/auth/google-callback', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code: response.code }),
-              });
+              const res = await exchangeGoogleCode(response.code);
 
               if (res.ok) {
                 const data = await res.json();
