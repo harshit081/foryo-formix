@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Shield, CheckCircle, XCircle, Key, RefreshCw } from 'lucide-react';
+import { BACKEND_URL } from '../functions/apiClient';
 
 interface SettingsProps {
   clientIdLoaded: boolean;
@@ -14,6 +15,12 @@ export default function Settings({
   onCheckHealth, 
   clientId 
 }: SettingsProps) {
+  const [origin, setOrigin] = useState('http://localhost:3000');
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setOrigin(window.location.origin);
+    }
+  }, []);
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
       <div className="theme-card p-7">
@@ -36,7 +43,7 @@ export default function Settings({
             <div>
               <div className="font-semibold text-sm text-theme-text-main">Backend Server Connection</div>
               <div className="text-theme-text-muted text-xs">
-                {backendHealthy ? 'Online (http://localhost:5000)' : 'Offline or unreachable'}
+                {backendHealthy ? `Online (${BACKEND_URL})` : 'Offline or unreachable'}
               </div>
             </div>
             <button 
@@ -106,17 +113,23 @@ export default function Settings({
           <div className="flex gap-4">
             <div className="w-6 h-6 rounded-full bg-theme-primary/10 text-theme-primary flex items-center justify-center font-bold text-xs shrink-0">5</div>
             <div className="text-xs text-theme-text-muted leading-relaxed">
-              Under <strong>Authorized JavaScript origins</strong>, add <code>http://localhost:3000</code>.
+              Under <strong>Authorized JavaScript origins</strong>, add <code>{origin}</code>.
             </div>
           </div>
           <div className="flex gap-4">
             <div className="w-6 h-6 rounded-full bg-theme-primary/10 text-theme-primary flex items-center justify-center font-bold text-xs shrink-0">6</div>
             <div className="text-xs text-theme-text-muted leading-relaxed">
-              Click <strong>Create</strong>. Copy the generated <strong>Client ID</strong> and <strong>Client Secret</strong>.
+              Under <strong>Authorized redirect URIs</strong>, add <code>postmessage</code>.
             </div>
           </div>
           <div className="flex gap-4">
             <div className="w-6 h-6 rounded-full bg-theme-primary/10 text-theme-primary flex items-center justify-center font-bold text-xs shrink-0">7</div>
+            <div className="text-xs text-theme-text-muted leading-relaxed">
+              Click <strong>Create</strong>. Copy the generated <strong>Client ID</strong> and <strong>Client Secret</strong>.
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="w-6 h-6 rounded-full bg-theme-primary/10 text-theme-primary flex items-center justify-center font-bold text-xs shrink-0">8</div>
             <div className="text-xs text-theme-text-muted leading-relaxed w-full">
               Paste these details in the backend <code>.env</code> file under variables:
               <pre className="bg-black/20 p-3 rounded mt-2 font-mono text-xs text-theme-text-main overflow-x-auto w-full">
@@ -126,7 +139,7 @@ export default function Settings({
             </div>
           </div>
           <div className="flex gap-4">
-            <div className="w-6 h-6 rounded-full bg-theme-primary/10 text-theme-primary flex items-center justify-center font-bold text-xs shrink-0">8</div>
+            <div className="w-6 h-6 rounded-full bg-theme-primary/10 text-theme-primary flex items-center justify-center font-bold text-xs shrink-0">9</div>
             <div className="text-xs text-theme-text-muted leading-relaxed">
               Restart your Express backend server to load the new credentials. Once done, verify the status displays "Loaded" above and connect your Google account!
             </div>
