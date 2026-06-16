@@ -278,9 +278,9 @@ export default function ExcelImporter({ token, showToast, onImportToBuilder }: E
             </button>
           </div>
 
-          <div className="w-full overflow-x-auto rounded-lg border border-theme-border-subtle">
+          <div className="w-full max-h-[460px] overflow-y-auto overflow-x-auto rounded-lg border border-theme-border-subtle">
             <table className="w-full border-collapse text-left text-xs text-theme-text-main">
-              <thead>
+              <thead className="sticky top-0 bg-theme-card z-10 shadow-[0_1px_0_0_var(--theme-border-subtle)]">
                 <tr className="bg-white/3 border-b border-theme-border-subtle">
                   <th className="p-3 font-semibold text-theme-text-main" style={{ width: '30%' }}>Question Title</th>
                   <th className="p-3 font-semibold text-theme-text-main" style={{ width: '15%' }}>Type</th>

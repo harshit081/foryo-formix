@@ -46,39 +46,25 @@ router.post('/', authenticateToken, async (req: AuthenticatedRequest, res) => {
   }
 
   try {
-    const newForm = await prisma.$transaction(async (tx: any) => {
-      const form = await tx.form.create({
-        data: {
-          title,
-          description,
-          isQuiz: isQuiz || false,
-          userId: req.userId!,
+    const newForm = await prisma.form.create({
+      data: {
+        title,
+        description,
+        isQuiz: isQuiz || false,
+        userId: req.userId!,
+        questions: {
+          create: (questions && Array.isArray(questions)) ? questions.map((q: any, idx: number) => ({
+            title: q.title,
+            type: q.type,
+            options: q.options ? (typeof q.options === 'string' ? q.options : JSON.stringify(q.options)) : null,
+            required: q.required || false,
+            points: q.points || 0,
+            correctAnswers: q.correctAnswers ? (typeof q.correctAnswers === 'string' ? q.correctAnswers : JSON.stringify(q.correctAnswers)) : null,
+            order: idx,
+          })) : [],
         },
-      });
-
-      if (questions && Array.isArray(questions)) {
-        await Promise.all(
-          questions.map((q: any, idx: number) =>
-            tx.question.create({
-              data: {
-                formId: form.id,
-                title: q.title,
-                type: q.type,
-                options: q.options ? (typeof q.options === 'string' ? q.options : JSON.stringify(q.options)) : null,
-                required: q.required || false,
-                points: q.points || 0,
-                correctAnswers: q.correctAnswers ? (typeof q.correctAnswers === 'string' ? q.correctAnswers : JSON.stringify(q.correctAnswers)) : null,
-                order: idx,
-              },
-            })
-          )
-        );
-      }
-
-      return tx.form.findUnique({
-        where: { id: form.id },
-        include: { questions: true },
-      });
+      },
+      include: { questions: true },
     });
 
     res.json(newForm);
@@ -102,45 +88,31 @@ router.put('/:id', authenticateToken, async (req: AuthenticatedRequest, res) => 
       return res.status(404).json({ error: 'Form not found' });
     }
 
-    const updatedForm = await prisma.$transaction(async (tx: any) => {
-      // Update form meta
-      const form = await tx.form.update({
-        where: { id },
-        data: {
-          title: title ?? existingForm.title,
-          description: description ?? existingForm.description,
-          isQuiz: isQuiz !== undefined ? isQuiz : existingForm.isQuiz,
-        },
-      });
+    const updateData: any = {
+      title: title ?? existingForm.title,
+      description: description ?? existingForm.description,
+      isQuiz: isQuiz !== undefined ? isQuiz : existingForm.isQuiz,
+    };
 
-      // If questions provided, replace them
-      if (questions && Array.isArray(questions)) {
-        await tx.question.deleteMany({
-          where: { formId: id },
-        });
+    if (questions && Array.isArray(questions)) {
+      updateData.questions = {
+        deleteMany: {},
+        create: questions.map((q: any, idx: number) => ({
+          title: q.title,
+          type: q.type,
+          options: q.options ? (typeof q.options === 'string' ? q.options : JSON.stringify(q.options)) : null,
+          required: q.required || false,
+          points: q.points || 0,
+          correctAnswers: q.correctAnswers ? (typeof q.correctAnswers === 'string' ? q.correctAnswers : JSON.stringify(q.correctAnswers)) : null,
+          order: idx,
+        })),
+      };
+    }
 
-        await Promise.all(
-          questions.map((q: any, idx: number) =>
-            tx.question.create({
-              data: {
-                formId: id,
-                title: q.title,
-                type: q.type,
-                options: q.options ? (typeof q.options === 'string' ? q.options : JSON.stringify(q.options)) : null,
-                required: q.required || false,
-                points: q.points || 0,
-                correctAnswers: q.correctAnswers ? (typeof q.correctAnswers === 'string' ? q.correctAnswers : JSON.stringify(q.correctAnswers)) : null,
-                order: idx,
-              },
-            })
-          )
-        );
-      }
-
-      return tx.form.findUnique({
-        where: { id },
-        include: { questions: { orderBy: { order: 'asc' } } },
-      });
+    const updatedForm = await prisma.form.update({
+      where: { id },
+      data: updateData,
+      include: { questions: { orderBy: { order: 'asc' } } },
     });
 
     res.json(updatedForm);
@@ -577,44 +549,18 @@ router.post('/import', authenticateToken, async (req: AuthenticatedRequest, res)
       where: { googleFormId, userId: req.userId },
     });
 
-    const savedForm = await prisma.$transaction(async (tx: any) => {
-      let form;
-      if (existingForm) {
-        // Delete old questions
-        await tx.question.deleteMany({
-          where: { formId: existingForm.id },
-        });
-
-        // Update form meta
-        form = await tx.form.update({
-          where: { id: existingForm.id },
-          data: {
-            title,
-            description,
-            isQuiz,
-            googleResponderUri: googleForm.responderUri || existingForm.googleResponderUri,
-          },
-        });
-      } else {
-        // Create new form
-        form = await tx.form.create({
-          data: {
-            title,
-            description,
-            googleFormId,
-            googleResponderUri: googleForm.responderUri || null,
-            isQuiz,
-            userId: req.userId!,
-          },
-        });
-      }
-
-      // Re-create questions
-      await Promise.all(
-        questionsToCreate.map((q) =>
-          tx.question.create({
-            data: {
-              formId: form.id,
+    let savedForm;
+    if (existingForm) {
+      savedForm = await prisma.form.update({
+        where: { id: existingForm.id },
+        data: {
+          title,
+          description,
+          isQuiz,
+          googleResponderUri: googleForm.responderUri || existingForm.googleResponderUri,
+          questions: {
+            deleteMany: {},
+            create: questionsToCreate.map((q) => ({
               title: q.title,
               type: q.type,
               options: q.options,
@@ -622,16 +568,35 @@ router.post('/import', authenticateToken, async (req: AuthenticatedRequest, res)
               points: q.points,
               correctAnswers: q.correctAnswers,
               order: q.order,
-            },
-          })
-        )
-      );
-
-      return tx.form.findUnique({
-        where: { id: form.id },
+            })),
+          },
+        },
         include: { questions: { orderBy: { order: 'asc' } } },
       });
-    });
+    } else {
+      savedForm = await prisma.form.create({
+        data: {
+          title,
+          description,
+          googleFormId,
+          googleResponderUri: googleForm.responderUri || null,
+          isQuiz,
+          userId: req.userId!,
+          questions: {
+            create: questionsToCreate.map((q) => ({
+              title: q.title,
+              type: q.type,
+              options: q.options,
+              required: q.required,
+              points: q.points,
+              correctAnswers: q.correctAnswers,
+              order: q.order,
+            })),
+          },
+        },
+        include: { questions: { orderBy: { order: 'asc' } } },
+      });
+    }
 
     res.json(savedForm);
   } catch (error: any) {

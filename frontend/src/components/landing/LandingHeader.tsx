@@ -8,7 +8,7 @@ interface LandingHeaderProps {
 export default function LandingHeader({ onLogin, onTrySandbox }: LandingHeaderProps) {
   return (
     <header className="max-w-7xl mx-auto w-full px-6 py-5 flex justify-between items-center z-30 relative border-b border-zinc-200/50 backdrop-blur-md bg-white/60 sticky top-0">
-      <div className="flex items-center gap-2.5">
+      <a href="/" className="flex items-center gap-2.5 cursor-pointer">
         <img src="/logo.png" alt="Foryo Formix Logo" className="w-8 h-8 shrink-0 select-none object-contain" />
         <div className="flex flex-col items-start leading-none text-left">
           <span className="text-[9px] font-bold text-[#A855F7] tracking-wider uppercase font-display select-none">Foryo</span>
@@ -16,7 +16,7 @@ export default function LandingHeader({ onLogin, onTrySandbox }: LandingHeaderPr
             Formix
           </span>
         </div>
-      </div>
+      </a>
       
       <nav className="hidden md:flex items-center gap-8 text-xs font-semibold text-zinc-500">
         <a href="#editor" className="hover:text-zinc-900 transition-colors">Visual Editor</a>
